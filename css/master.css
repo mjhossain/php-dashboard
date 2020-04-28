@@ -1,0 +1,100 @@
+:root {
+  --black: #303030;
+  --green: #32C2A4;
+  --yellow: #DBB147;
+  --background1: #F4F6F6;
+  --background2: #FEFEFE;
+
+}
+
+.mainBG {
+  background: linear-gradient(to bottom, rgba(15, 15, 15, 0.1) 0%, rgba(15, 15, 15, 0.1) 100%), url(../assets/mainbg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.bodyWrapper {
+  /* background-color: var(--background1); */
+  height: 100vh;
+}
+
+.loginBox {
+  background-color: var(--green);
+  height: 500px;
+  width: 700px;
+  /* border-radius: 50px; */
+}
+
+.formField {
+  font-size: 1.3em;
+  font-family: var(--font3);
+  /* letter-spacing: 0.2em; */
+  background: white;
+  border: 0;
+  border-bottom: 3px solid #222222;
+  border-radius: 0;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: white;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+.menuBar {
+  background-color: var(--background1);
+  height: 100vh;
+  border-right: 3px solid #CFD1D1;
+}
+
+.dashboardBody {
+  background-color: var(--background2);
+
+}
+
+.topBar {
+  border-bottom: 2px solid var(--background1);
+}
+
+
+.card2 {
+  height: 25vh;
+  background-color: var(--blue);
+
+  margin-left: 30px;
+}
+
+.card1 {
+  height: 25vh;
+  background-color: var(--teal);
+
+  margin-left: 30px;
+}
+
+.card3 {
+  height: 25vh;
+  background-color: var(--yellow);
+
+  margin-left: 30px;
+}
+
+.table1 {
+  height: 60vh;
+  background-color: var(--blue);
+}
+
+.menu {
+  height: 70vh;
+  background-color: var(--indigo);
+}
+ a:hover {
+   text-decoration: none;
+ }
