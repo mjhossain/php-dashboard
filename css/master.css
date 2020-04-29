@@ -31,8 +31,11 @@
 
 .loginBox {
   background-color: var(--green);
-  height: 500px;
-  width: 700px;
+  /* height: 600px; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* width: 700px; */
   /* border-radius: 50px; */
 }
 
@@ -75,7 +78,7 @@
 
 .dashboardBody {
   background-color: var(--background2);
-  height: 100vh;
+  height: 100%;
 
 }
 
@@ -131,6 +134,6 @@
  }
 
  .tableBox {
-   max-height: 600px;
+   /* max-height: 800px; */
    overflow-y: scroll;
  }

@@ -27,6 +27,15 @@
           <div class="row mt-2 topBar p-2">
             <div class="col-md-6">
               <h4 class="align-center">Dashboard: Members Area</h4>
+              <p><?php 
+
+                if (isset($message)) {
+                  echo $message;
+                } else {
+                  echo "";
+                }
+              
+              ?></p>
             </div>
           </div>
       <div class="row mt-5 tableBox">
@@ -57,7 +66,7 @@
                             '<td>'.$row['email'].'</td>'.
                             '<td>'.$row['phone'].'</td>'.
                             '<td>'.$row['address'].'</td>'.
-                            '<td><a href=""><i class="fas fa-1x fa-edit"></i></a> <a href="" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
+                            '<td><a href=""><i class="fas fa-1x fa-edit"></i></a> <a href="delete.php?id='.$row['id'].'" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
                           '</tr>';
                       }
                     } else {

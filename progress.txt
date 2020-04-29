@@ -9,3 +9,10 @@ Design
 [] Edit Member Data Page
     Try doing a modal for this.
 [] Logout
+
+
+
+
+Process
+[x] Login Process
+[] Login Session

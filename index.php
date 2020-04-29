@@ -1,3 +1,27 @@
+<?php 
+
+require('database.php');
+
+$message = "";
+
+if(isset($_POST['submit'])){
+
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $query = 'SELECT * FROM admin WHERE username="'.$username.'" AND password="'.$password.'" LIMIT 1';
+
+  $result = mysqli_query($conn, $query);
+
+  if(mysqli_num_rows($result) == 1) {
+    header('Location: home.php');
+  } else {
+    $message = "Wrong username or password!";
+  }
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -11,17 +35,22 @@
   <body>
     <div class="mx-auto mainBG">
       <div class="row justify-content-center align-items-center bodyWrapper">
-        <div class="shadow col-md-4 offset-md-4 p-5 loginBox justify-content-center">
-          <h3 class="text-center">City Flex: Admin Dashboard</h3>
-          <form class="" action="index.html" method="post">
-            <input type="text" id="username" name="username" class="form-control formField mt-5" placeholder="Username">
-            <br>
-            <input type="password" id="password" name="password" class="form-control formField mb-4" placeholder="Password">
-            <button type="button" name="submit" class="btn-primary btn-lg btn-block mb-5">Login</button>
-          </form>
-          <p class="text-center">Don't have an accout?</p>
-          <hr>
-          <button type="button" name="register" class="btn-warning btn-lg btn-block">Register</button>
+        <div class="shadow col-sm-8 col-lg-4 offset-lg-5 p-5 loginBox">
+         
+            <h3 class="text-center">City Flex: Admin Dashboard</h3>
+            <p class="text-center text-danger">
+              <?php echo $message; ?>
+            </p>
+            <form class="" action="index.php" method="post" id="login_form">
+              <input type="text" id="username" name="username" class="form-control formField mt-5" placeholder="Username">
+              <br>
+              <input type="password" id="password" name="password" class="form-control formField mb-4" placeholder="Password">
+              <input type="submit" name="submit" value="Login" class="btn-primary btn-lg btn-block mb-5"></input>
+            </form>
+            <p class="text-center">Don't have an account?</p>
+            <hr>
+            <button type="button" name="register" class="btn-warning btn-lg btn-block">Register</button>
+         
         </div>
       </div>
     </div>
@@ -31,3 +60,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+
+mysqli_close($conn);
+
+?>
