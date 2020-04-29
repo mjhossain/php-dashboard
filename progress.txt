@@ -5,6 +5,7 @@ Design
     [] Menu Bar
     [x] Dashboard
 [x] Admin register Page
-[] Members Register/View Page
+[x] Members Register/View Page
 [] Edit Member Data Page
+    Try doing a modal for this.
 [] Logout

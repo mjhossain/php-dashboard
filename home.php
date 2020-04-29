@@ -1,4 +1,4 @@
-
+<?php require('database.php'); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -12,7 +12,7 @@
   <body>
 
     <div class="container-fluid">
-      <div class="row">
+      <div class="row mainWrapper">
         <div class="col-md-3 menuBar">
           <br><br>
           <div class="row justify-content-center p-2">
@@ -60,18 +60,38 @@
                 <tbody>
 
 
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Whatever</td>
-                  </tr>
+                <?php
+                    $query = "SELECT * FROM userTest LIMIT 4";
+                    $result = mysqli_query($conn, $query);
+
+                    if(mysqli_num_rows($result) > 0) {
+                      while($row = mysqli_fetch_assoc($result)) {
+
+                        
+                            echo '<tr>'.
+                            '<th scope=\"row\">'.$row['id'].'</th>'.
+                            '<td>'.ucwords($row['name']).'</td>'.
+                            '<td>'.$row['email'].'</td>'.
+                            '<td>'.$row['phone'].'</td>'.
+                            '<td>'.$row['address'].'</td>'.
+                          '</tr>';
+                      }
+                    } else {
+                      echo '<tr>'.
+                            '<th scope="row">1</th>'.
+                            '<td>Name</td>'.
+                            '<td>Email</td>'.
+                            '<td>Phone</td>'.
+                            '<td>Address</td>'.
+                          '</tr>';
+                    }
+                ?>
+                  
 
 
                 </tbody>
               </table>
-              <a href="" class="btn-danger btn-lg btn-block text-center">Manage Members</a>
+              <a href="members.php" class="btn-danger btn-lg btn-block text-center">Manage Members</a>
             </div>
           </div>
         </div>

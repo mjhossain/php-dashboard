@@ -67,12 +67,15 @@
 
 .menuBar {
   background-color: var(--background1);
-  height: 100vh;
+  /* height: 100vh; */
   border-right: 3px solid #CFD1D1;
+  margin-bottom: -5000px; /* any large number will do */
+  padding-bottom: 5000px;
 }
 
 .dashboardBody {
   background-color: var(--background2);
+  height: 100vh;
 
 }
 
@@ -113,4 +116,21 @@
 }
  a:hover {
    text-decoration: none;
+ }
+
+ .delBtn {
+   color: #ff5252;
+ }
+
+ .delBtn:hover {
+   color: #ff5252;
+ }
+
+ .mainWrapper {
+   overflow-y: hidden;
+ }
+
+ .tableBox {
+   max-height: 600px;
+   overflow-y: scroll;
  }
