@@ -4,3 +4,7 @@ Design
 [x] Home Page
     [] Menu Bar
     [x] Dashboard
+[x] Admin register Page
+[] Members Register/View Page
+[] Edit Member Data Page
+[] Logout
