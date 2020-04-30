@@ -13,7 +13,7 @@ if(!isset($_SESSION['username'])) {
 } else {
   $name = $_SESSION['name'];
   $username = $_SESSION['username'];
-  $user_id = $_SESSION['user_id'];
+  $admin_id = $_SESSION['admin_id'];
 }
 
 
@@ -36,21 +36,14 @@ if(!isset($_SESSION['username'])) {
 
   <div class="container-fluid">
       <div class="row  mainWrapper">
-        <div class="col-md-2 menuBar">
-          <br><br>
-          <div class="row justify-content-center p-2">
-
-            <h3>City Flex</h3>
-          </div>
-          <br><br>
-          <div class="col-md-12 menu"></div>
-        </div>
-        <div class="col-md-10 dashboardBody">
-          <div class="row mt-2 topBar p-2">
-            <div class="col-md-12 align-items-center">
-            <div class="row align-items-center">
-                <h4 class="">Dashboard</h4>
-                <h4 class="offset-7"><?php echo $name; ?></h4>
+        
+        <div class="col-md-12 dashboardBody">
+        <div class="row mt-2 topBar p-2 justify-content-center">
+            <div class="col-lg-12 col-md-12 align-items-center">
+            <div class="row align-items-center justify-content-center">
+                <a href="home.php" class="btn btn-primary text-center dashboard-btn">Dashboard</a>
+                <!-- <h4 class="">Add Member</h4> -->
+                <h4 class="offset-lg-7 offset-md-5"><?php echo $_SESSION['name']; ?></h4>
                 &nbsp;&nbsp;&nbsp;
                 <a href="logout.php" class="align-center text-danger"><i class="fas fa-2x fa-power-off"></i></a>
               </div>
@@ -68,10 +61,9 @@ if(!isset($_SESSION['username'])) {
                 </p>
               </div>
             </div>
-          </div>
-      <div class="row mt-5 tableBox">
-        <div class="col-md-12">
-        <button type="button" name="submit" class="btn-warning btn-lg btn-block mb-5">Add New Member</button>  
+      <div class="row mt-5 tableBox align-items-center">
+        <div class="col-md-12 justify-content-center">
+        <a href="add_member.php" class="btn-warning btn-lg btn-block mb-5 text-center">Add New Member</a>  
         <table class="table table-hover">
           <thead>
             <tr>
@@ -84,7 +76,7 @@ if(!isset($_SESSION['username'])) {
           </thead>
           <tbody>
           <?php
-                    $query = "SELECT * FROM users WHERE admin_id =" . $user_id ."";
+                    $query = "SELECT * FROM users WHERE admin_id =" . $admin_id ."";
                     $result = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($result) > 0) {
@@ -96,7 +88,7 @@ if(!isset($_SESSION['username'])) {
                             '<td>'.$row['email'].'</td>'.
                             '<td>'.$row['phone'].'</td>'.
                             '<td>'.$row['address'].'</td>'.
-                            '<td><a href=""><i class="fas fa-1x fa-edit"></i></a> <a href="delete.php?id='.$row['id'].'" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
+                            '<td><a href="edit_member.php?id='.$row['id'].'"><i class="fas fa-1x fa-edit"></i></a> <a href="delete.php?id='.$row['id'].'" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
                           '</tr>';
                       }
                     } else {

@@ -2,10 +2,12 @@
 
 require('database.php');
 
+session_start();
+
 if(isset($_SESSION['username'])){
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
-        $query = "DELETE FROM userTest WHERE id =". $id;
+        $query = "DELETE FROM users WHERE id =$id";
         if(mysqli_query($conn, $query)){
             $message = "Deletion Success!";
             header("Location: members.php");
@@ -15,6 +17,7 @@ if(isset($_SESSION['username'])){
         }
     }
 } else {
+    
     header('Location: index.php');
 }
 ?>

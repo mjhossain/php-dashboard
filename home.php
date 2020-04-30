@@ -12,7 +12,7 @@ if(!isset($_SESSION['username'])) {
 } else {
   $name = $_SESSION['name'];
   $username = $_SESSION['username'];
-  $user_id = $_SESSION['user_id'];
+  $admin_id = $_SESSION['admin_id'];
 }
 
 ?>
@@ -88,7 +88,7 @@ if(!isset($_SESSION['username'])) {
 
                     $memberBtnText = "Manage All Members";
 
-                    $query = "SELECT * FROM users WHERE admin_id = ".$user_id." LIMIT 4";
+                    $query = "SELECT * FROM users WHERE admin_id = ".$admin_id." LIMIT 4";
                     $result = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($result) > 0) {

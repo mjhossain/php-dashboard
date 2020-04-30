@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
 
       $_SESSION['username'] = $row['username'];
       $_SESSION['name'] = $row['name'];
-      $_SESSION['user_id'] = $row['id'];
+      $_SESSION['admin_id'] = $row['id'];
     }
     header('Location: home.php');
   } else {
