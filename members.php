@@ -1,4 +1,26 @@
-<?php require('database.php'); ?>
+
+<?php 
+
+require('database.php'); 
+
+
+session_start();
+
+
+if(!isset($_SESSION['username'])) {
+  $_SESSION['message'] = 'Please login to view your dashboard.';
+  header('Location: index.php');
+} else {
+  $name = $_SESSION['name'];
+  $username = $_SESSION['username'];
+  $user_id = $_SESSION['user_id'];
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -25,25 +47,34 @@
         </div>
         <div class="col-md-10 dashboardBody">
           <div class="row mt-2 topBar p-2">
-            <div class="col-md-6">
-              <h4 class="align-center">Dashboard: Members Area</h4>
-              <p><?php 
+            <div class="col-md-12 align-items-center">
+            <div class="row align-items-center">
+                <h4 class="">Dashboard</h4>
+                <h4 class="offset-7"><?php echo $name; ?></h4>
+                &nbsp;&nbsp;&nbsp;
+                <a href="logout.php" class="align-center text-danger"><i class="fas fa-2x fa-power-off"></i></a>
+              </div>
+              <div class="row">
+                <p>
+                  <?php 
 
-                if (isset($message)) {
-                  echo $message;
-                } else {
-                  echo "";
-                }
-              
-              ?></p>
+                    if (isset($message)) {
+                      echo $message;
+                    } else {
+                      echo "";
+                    }
+
+                    ?>
+                </p>
+              </div>
             </div>
           </div>
       <div class="row mt-5 tableBox">
-        <div class="col-md-7">
+        <div class="col-md-12">
+        <button type="button" name="submit" class="btn-warning btn-lg btn-block mb-5">Add New Member</button>  
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
@@ -53,7 +84,7 @@
           </thead>
           <tbody>
           <?php
-                    $query = "SELECT * FROM userTest";
+                    $query = "SELECT * FROM users WHERE admin_id =" . $user_id ."";
                     $result = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($result) > 0) {
@@ -61,7 +92,6 @@
 
                         
                             echo '<tr>'.
-                            '<th scope="row">'.$row['id'].'</th>'.
                             '<td>'.ucwords($row['name']).'</td>'.
                             '<td>'.$row['email'].'</td>'.
                             '<td>'.$row['phone'].'</td>'.
@@ -71,7 +101,6 @@
                       }
                     } else {
                       echo '<tr>'.
-                            '<th scope="row">1</th>'.
                             '<td>Name</td>'.
                             '<td>Email</td>'.
                             '<td>Phone</td>'.
@@ -81,21 +110,6 @@
                 ?>
           </tbody>
         </table>
-        </div>
-        <div class="col-md-5">
-          
-          <h3 class="text-center mt-5">Add New Member</h3>
-        <form class="" action="members.php" method="post">
-            <input type="text" id="name" name="name" class="form-control formField mt-5 mb-4" placeholder="Full Name">
-            <br>
-            <input type="text" id="email" name="email" class="form-control formField mb-4" placeholder="Email">
-            <br>
-            <input type="text" id="phone" name="phone" class="form-control formField mb-4" placeholder="Phone">
-            <br>
-            <input type="text" id="address" name="address" class="form-control formField mb-4" placeholder="Address">
-           
-            <button type="button" name="submit" class="btn-warning btn-lg btn-block mb-5">Add Member</button>
-          </form>
         </div>
       </div>
     </div>

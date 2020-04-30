@@ -1,3 +1,33 @@
+
+<?php
+
+require('database.php');
+
+session_start();
+
+if(isset($_SESSION['username'])) {
+  header('Location: home.php');
+} else {
+
+}
+
+if(isset($_POST['submit'])) {
+  $name = $_POST['fullname'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $query = "INSERT INTO admin(name, username, password) VALUES ('".$name."','".$username."','".$password."')";
+
+  if (mysqli_query($conn, $query)) {
+    session_unset();
+    header("Location: index.php");
+    } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($conn);
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -19,11 +49,11 @@
             <input type="text" id="username" name="username" class="form-control formField" placeholder="Username">
             <br>
             <input type="password" id="password" name="password" class="form-control formField mb-4" placeholder="Password">
-            <button type="button" name="submit" class="btn-primary btn-lg btn-block mb-4">Register</button>
+            <input type="submit" name="submit" value="Register" class="btn-primary btn-lg btn-block mb-4"/>
           </form>
-          <p class="text-center">Already have an accout?</p>
+          <p class="text-center">Already have an account?</p>
           <hr>
-          <button type="button" name="register" class="btn-warning btn-lg btn-block">Login</button>
+          <a href="index.php" name="register" class="btn-warning btn-lg btn-block text-center">Login</a>
         </div>
       </div>
     </div>

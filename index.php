@@ -1,10 +1,19 @@
 <?php 
 
 require('database.php');
+session_start();
 
 $message = "";
 
+if(isset($_SESSION['username'])){
+  header("Location: home.php");
+} else {
+
+}
+
 if(isset($_POST['submit'])){
+
+  
 
   $username = $_POST['username'];
   $password = $_POST['password'];
@@ -13,6 +22,14 @@ if(isset($_POST['submit'])){
   $result = mysqli_query($conn, $query);
 
   if(mysqli_num_rows($result) == 1) {
+    while($row = mysqli_fetch_assoc($result)) {
+
+      // echo $row['name'];
+
+      $_SESSION['username'] = $row['username'];
+      $_SESSION['name'] = $row['name'];
+      $_SESSION['user_id'] = $row['id'];
+    }
     header('Location: home.php');
   } else {
     $message = "Wrong username or password!";
@@ -49,7 +66,7 @@ if(isset($_POST['submit'])){
             </form>
             <p class="text-center">Don't have an account?</p>
             <hr>
-            <button type="button" name="register" class="btn-warning btn-lg btn-block">Register</button>
+            <a href="register.php" class="btn-warning btn-lg btn-block text-center">Register</a>
          
         </div>
       </div>

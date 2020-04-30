@@ -6,13 +6,34 @@ Design
     [x] Dashboard
 [x] Admin register Page
 [x] Members Register/View Page
+[] Add Member Page
 [] Edit Member Data Page
-    Try doing a modal for this.
-[] Logout
+[x] Logout
 
 
 
 
 Process
 [x] Login Process
-[] Login Session
+[x] Login Session
+[x] Admin Registration
+[] Edit Members
+[] Add Member Page
+[x] Logout
+
+
+ <div class="col-md-5">
+          
+          <h3 class="text-center mt-5">Add New Member</h3>
+        <form class="" action="members.php" method="post">
+            <input type="text" id="name" name="name" class="form-control formField mt-5 mb-4" placeholder="Full Name">
+            <br>
+            <input type="text" id="email" name="email" class="form-control formField mb-4" placeholder="Email">
+            <br>
+            <input type="text" id="phone" name="phone" class="form-control formField mb-4" placeholder="Phone">
+            <br>
+            <input type="text" id="address" name="address" class="form-control formField mb-4" placeholder="Address">
+           
+            
+          </form>
+        </div>

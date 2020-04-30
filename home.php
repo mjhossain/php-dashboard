@@ -1,4 +1,23 @@
-<?php require('database.php'); ?>
+<?php 
+
+require('database.php'); 
+
+
+session_start();
+
+
+if(!isset($_SESSION['username'])) {
+  $_SESSION['message'] = 'Please login to view your dashboard.';
+  header('Location: index.php');
+} else {
+  $name = $_SESSION['name'];
+  $username = $_SESSION['username'];
+  $user_id = $_SESSION['user_id'];
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -8,6 +27,7 @@
     <title>City Flex</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/master.css">
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
   </head>
   <body>
 
@@ -24,8 +44,13 @@
         </div>
         <div class="col-md-9 dashboardBody">
           <div class="row mt-2 topBar p-2">
-            <div class="col-md-3">
-              <h4 class="align-center">Dashboard</h4>
+            <div class="col-md-12">
+              <div class="row align-items-center justify-content-center">
+                <h4 class="">Dashboard</h4>
+                <h4 class="offset-7"><?php echo $name; ?></h4>
+                &nbsp;&nbsp;&nbsp;
+                <a href="logout.php" class="align-center text-danger"><i class="fas fa-2x fa-power-off"></i></a>
+              </div>
             </div>
           </div>
           <div class="row p-3">
@@ -50,7 +75,6 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
@@ -61,7 +85,10 @@
 
 
                 <?php
-                    $query = "SELECT * FROM userTest LIMIT 4";
+
+                    $memberBtnText = "Manage All Members";
+
+                    $query = "SELECT * FROM users WHERE admin_id = ".$user_id." LIMIT 4";
                     $result = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($result) > 0) {
@@ -69,7 +96,6 @@
 
                         
                             echo '<tr>'.
-                            '<th scope=\"row\">'.$row['id'].'</th>'.
                             '<td>'.ucwords($row['name']).'</td>'.
                             '<td>'.$row['email'].'</td>'.
                             '<td>'.$row['phone'].'</td>'.
@@ -77,8 +103,8 @@
                           '</tr>';
                       }
                     } else {
+                      $memberBtnText = "Add Member";
                       echo '<tr>'.
-                            '<th scope="row">1</th>'.
                             '<td>Name</td>'.
                             '<td>Email</td>'.
                             '<td>Phone</td>'.
@@ -91,7 +117,7 @@
 
                 </tbody>
               </table>
-              <a href="members.php" class="btn-danger btn-lg btn-block text-center">Manage Members</a>
+              <a href="members.php" class="btn-danger btn-lg btn-block text-center"><?php echo $memberBtnText; ?></a>
             </div>
           </div>
         </div>
