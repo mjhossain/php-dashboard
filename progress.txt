@@ -26,3 +26,17 @@ Process
 [] Validation PHP
 [] Validation JS
 [] MYSQL security
+
+
+CLIENT SIDE Validation : Check only if empty
+[x] Login
+[x] Registration
+[] Add Member
+[] Edit Member
+
+
+SERVER SIDE Validation : Check length and pattern
+[] Login
+[] Registration
+[] Add Member
+[] Edit Member

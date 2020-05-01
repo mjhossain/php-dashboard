@@ -141,3 +141,10 @@ a:hover {
 .dashboard-btn {
     margin-right: 2em;
 }
+
+
+/* Form Classes */
+
+.wrong-input {
+    border: 2px solid var(--red);
+}
