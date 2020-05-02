@@ -15,6 +15,7 @@ function validateLogin() {
 
 
 
+
         if (login_userName.value == '' && login_password.value != '') {
             login_userName.classList.add('wrong-input');
             if (login_password.classList.contains('wrong-input')) {
@@ -22,7 +23,11 @@ function validateLogin() {
             }
         } else if (login_password.value == '' && login_userName.value != '') {
             login_password.classList.add('wrong-input');
-            if (login_userName.classList.contains('wrong-input')) {
+
+            var regex = /\W/g;
+            if (regex.test(login_userName.value) == true) {
+                login_userName.classList.add('wrong-input');
+            } else if (login_userName.classList.contains('wrong-input')) {
                 login_userName.classList.remove('wrong-input');
             }
         } else if (login_userName.value == '' || login_password.value == '') {
@@ -33,7 +38,16 @@ function validateLogin() {
         return false;
 
     } else {
-        return true;
+
+        var regex = /\W/g;
+        if (regex.test(login_userName.value) == true) {
+            login_userName.classList.add('wrong-input');
+            return false;
+        } else {
+            return true;
+        }
+
+
     }
 }
 
@@ -59,7 +73,11 @@ function validateRegistration() {
         if (fullName == '') {
             register_name.classList.add('wrong-input');
         } else {
-            if (register_name.classList.contains('wrong-input')) {
+
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(fullName) == false) {
+                register_name.classList.add('wrong-input');
+            } else if (register_name.classList.contains('wrong-input')) {
                 register_name.classList.remove('wrong-input');
             }
         }
@@ -67,7 +85,11 @@ function validateRegistration() {
         if (username == '') {
             register_username.classList.add('wrong-input');
         } else {
-            if (register_username.classList.contains('wrong-input')) {
+
+            var regex = /\W/g;
+            if (regex.test(username) == true) {
+                register_username.classList.add('wrong-input');
+            } else if (register_username.classList.contains('wrong-input')) {
                 register_username.classList.remove('wrong-input');
             }
         }
@@ -95,67 +117,16 @@ function validateRegistration() {
             alert('Passwords do not match');
             return false;
         } else {
-            check_Alpha(fullName);
+
             return true;
         }
 
 
     }
 
-    // check if password and re password does not match
 
 
 
 
-}
 
-
-// Validation Helper Functions
-
-function check_Zip(zipCode) {
-    var regex = /^\d{5}$/;
-    if (regex.test(zipCode) == false) {
-        return false;
-    }
-    if (zipCode == " ") {
-        return false;
-    }
-    return true;
-}
-
-
-function check_Alpha(letters) {
-    console.log("Alpha Test");
-    var regex = /^[a-zA-Z]+$/;
-    if (regex.test(letters) == false) {
-
-        return false;
-    }
-    if (letters == " ") {
-
-        return false;
-    }
-    return true;
-}
-
-function check_phone(phone) {
-    var regex = /^\(?\d{3}\)?-?\s*-?\d{4}$/;
-    if (regex.test(phone)) {
-
-        return true;
-    } else {
-
-        return false;
-    }
-}
-
-function check_Email(mail) {
-    var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
-    if (regex.test(mail)) {
-        return true;
-
-    } else {
-
-        return false;
-    }
 }

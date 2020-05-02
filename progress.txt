@@ -50,3 +50,5 @@ Changes to be made:
     [x] Fix Edit Member Form
     [] Hashing Passwords
     [x] Add PHP security
+    [x] Login Form test
+    [x] Registration Form test
