@@ -85,10 +85,12 @@ if(!isset($_SESSION['username'])) {
 
 
                 <?php
+                
 
                     $memberBtnText = "Manage All Members";
+                    $memBtnLink = "members.php";
 
-                    $query = "SELECT * FROM users WHERE admin_id = ".$admin_id." LIMIT 4";
+                    $query = "SELECT * FROM members WHERE admin_id = ".$admin_id." LIMIT 4";
                     $result = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($result) > 0) {
@@ -104,6 +106,7 @@ if(!isset($_SESSION['username'])) {
                       }
                     } else {
                       $memberBtnText = "Add Member";
+                      $memBtnLink = "add_member.php";
                       echo '<tr>'.
                             '<td>Name</td>'.
                             '<td>Email</td>'.
@@ -117,7 +120,7 @@ if(!isset($_SESSION['username'])) {
 
                 </tbody>
               </table>
-              <a href="members.php" class="btn-danger btn-lg btn-block text-center"><?php echo $memberBtnText; ?></a>
+              <a href="<?php echo $memBtnLink; ?>" class="btn-danger btn-lg btn-block text-center"><?php echo $memberBtnText; ?></a>
             </div>
           </div>
         </div>

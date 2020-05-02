@@ -17,7 +17,7 @@ if(!isset($_SESSION['username'])) {
 
   if(isset($_GET['id'])) {
     $mem_id = $_GET['id'];
-    $query = "SELECT * FROM users WHERE id = $mem_id";
+    $query = "SELECT * FROM members WHERE id = $mem_id";
     $result = mysqli_query($conn, $query);
 
     if(mysqli_num_rows($result) == 1) {
@@ -26,20 +26,25 @@ if(!isset($_SESSION['username'])) {
         $mem_email = $row['email'];
         $mem_phone = $row['phone'];
         $mem_address = $row['address'];
+        $mem_state = $row['state'];
+        $mem_zip = $row['zip'];
       }
     } else {
       $message_form = "Member not found!";
     }
   } elseif(isset($_POST['submit'])) {
-    $mem_id = $_POST['member_id'];
-    $mem_name = $_POST['name'];
-    $mem_email = $_POST['email'];
-    $mem_phone = $_POST['phone'];
-    $mem_address = $_POST['address'];
+
+    $mem_id = safeInput($_POST['member_id']);
+    $mem_name = safeInput($_POST['name']);
+    $mem_email = safeInput($_POST['email']);
+    $mem_phone = safeInput($_POST['phone']);
+    $mem_address = safeInput($_POST['address']);
+    $mem_state = safeInput($_POST['state']);
+    $mem_zip = safeInput($_POST['zip']);
 
     
-    $query = "UPDATE users SET id = $mem_id, name = '$mem_name', email = '$mem_email',". 
-             "phone = '$mem_phone', address = '".$mem_address."' WHERE id = $mem_id";
+    $query = "UPDATE members SET id = $mem_id, name = '$mem_name', email = '$mem_email',". 
+             "phone = '$mem_phone', address = '$mem_address', state = '$mem_state', zip = '$mem_zip' WHERE id = $mem_id";
 
     
     if(mysqli_query($conn, $query)) {
@@ -111,6 +116,8 @@ if(!isset($_SESSION['username'])) {
                 <input type="text" id="phone" name="phone" class="form-control mb-4 form-control-lg" placeholder="Phone" value="<?php echo $mem_phone; ?>">
                 
                 <input type="text" id="address" name="address" class="form-control mb-4 form-control-lg" placeholder="Address" value="<?php echo $mem_address; ?>">
+                <input type="text" id="state" name="state" class="form-control mb-4 form-control-lg" placeholder="State" value="<?php echo $mem_state; ?>">
+                <input type="text" id="zip" name="zip" class="form-control mb-4 form-control-lg" placeholder="Zip" value="<?php echo $mem_zip; ?>">
                 <br>
                 <input type="submit" name="submit" value="Edit Member Info" class="btn-lg btn-block btn-primary m1-5">
                 <a href="delete.php?id=<?php echo $mem_id; ?>" class="btn-lg btn-block btn-danger mb-3 text-center">Delete Member</a>
@@ -126,5 +133,6 @@ if(!isset($_SESSION['username'])) {
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
   </body>
 </html>

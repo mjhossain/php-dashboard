@@ -40,3 +40,13 @@ SERVER SIDE Validation : Check length and pattern
 [] Registration
 [] Add Member
 [] Edit Member
+
+
+Changes to be made:
+    [x] Change members database columns
+    [] Add JS regex Validation
+    [] Add PHP Validation
+    [x] Fix Add Member Form
+    [x] Fix Edit Member Form
+    [] Hashing Passwords
+    [x] Add PHP security

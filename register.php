@@ -12,9 +12,9 @@ if(isset($_SESSION['username'])) {
 }
 
 if(isset($_POST['submit'])) {
-  $name = $_POST['fullname'];
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+  $name = safeInput($_POST['fullname']);
+  $username = safeInput($_POST['username']);
+  $password = safeInput($_POST['password']);
 
   $query = "INSERT INTO admin(name, username, password) VALUES ('".$name."','".$username."','".$password."')";
 

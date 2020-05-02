@@ -10,13 +10,15 @@ if(!isset($_SESSION['username'])) {
   header('Location: index.php');
 } else {
   if(isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
-    $admin_id = $_SESSION['admin_id'];
+    $name = safeInput($_POST['name']);
+    $email = safeInput($_POST['email']);
+    $phone = safeInput($_POST['phone']);
+    $address = safeInput($_POST['address']);
+    $state = safeInput($_POST['state']);
+    $zip = safeInput($_POST['zip']);
+    $admin_id = safeInput($_SESSION['admin_id']);
 
-    $query = "INSERT INTO users(name, email, phone, address, admin_id) VALUES('$name', '$email', '$phone', '$address', $admin_id)";
+    $query = "INSERT INTO members(name, email, phone, address, state, zip, admin_id) VALUES('$name', '$email', '$phone', '$address', '$state', $zip, $admin_id)";
     if(mysqli_query($conn, $query)) {
       $message_form = "Member added";
     } else {
@@ -25,6 +27,7 @@ if(!isset($_SESSION['username'])) {
     }
   }
 }
+
 
 ?>
 
@@ -81,6 +84,17 @@ if(!isset($_SESSION['username'])) {
                 <input type="text" id="phone" name="phone" class="form-control mb-4 form-control-lg" placeholder="Phone">
                 
                 <input type="text" id="address" name="address" class="form-control mb-4 form-control-lg" placeholder="Address">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                      <input type="text" id="state" name="state" class="form-control mb-4 form-control-lg" placeholder="State">
+                    </div>
+
+                    <div class="col-lg-8">
+                    <input type="text" id="zip" name="zip" class="form-control mb-4 form-control-lg" placeholder="Zip Code">
+                    </div>
+                </div> 
+
                 <br>
                 <input type="submit" name="submit" value="Add Member" class="btn-lg btn-block btn-danger mb-5">
 

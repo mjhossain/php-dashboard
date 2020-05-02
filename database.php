@@ -1,6 +1,7 @@
 <?php
 
 require('dbDetails.php');
+require('functions.php');
 
 $conn = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
 

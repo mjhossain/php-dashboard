@@ -95,8 +95,11 @@ function validateRegistration() {
             alert('Passwords do not match');
             return false;
         } else {
+            check_Alpha(fullName);
             return true;
         }
+
+
     }
 
     // check if password and re password does not match
@@ -104,4 +107,55 @@ function validateRegistration() {
 
 
 
+}
+
+
+// Validation Helper Functions
+
+function check_Zip(zipCode) {
+    var regex = /^\d{5}$/;
+    if (regex.test(zipCode) == false) {
+        return false;
+    }
+    if (zipCode == " ") {
+        return false;
+    }
+    return true;
+}
+
+
+function check_Alpha(letters) {
+    console.log("Alpha Test");
+    var regex = /^[a-zA-Z]+$/;
+    if (regex.test(letters) == false) {
+
+        return false;
+    }
+    if (letters == " ") {
+
+        return false;
+    }
+    return true;
+}
+
+function check_phone(phone) {
+    var regex = /^\(?\d{3}\)?-?\s*-?\d{4}$/;
+    if (regex.test(phone)) {
+
+        return true;
+    } else {
+
+        return false;
+    }
+}
+
+function check_Email(mail) {
+    var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+    if (regex.test(mail)) {
+        return true;
+
+    } else {
+
+        return false;
+    }
 }

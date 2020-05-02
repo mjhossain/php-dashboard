@@ -71,12 +71,14 @@ if(!isset($_SESSION['username'])) {
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
               <th scope="col">Address</th>
+              <th scope="col">State</th>
+              <th scope="col">Zip Code</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
           <?php
-                    $query = "SELECT * FROM users WHERE admin_id =" . $admin_id ."";
+                    $query = "SELECT * FROM members WHERE admin_id =" . $admin_id ."";
                     $result = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($result) > 0) {
@@ -88,6 +90,8 @@ if(!isset($_SESSION['username'])) {
                             '<td>'.$row['email'].'</td>'.
                             '<td>'.$row['phone'].'</td>'.
                             '<td>'.$row['address'].'</td>'.
+                            '<td>'.$row['state'].'</td>'.
+                            '<td>'.$row['zip'].'</td>'.
                             '<td><a href="edit_member.php?id='.$row['id'].'"><i class="fas fa-1x fa-edit"></i></a> <a href="delete.php?id='.$row['id'].'" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
                           '</tr>';
                       }
@@ -97,6 +101,8 @@ if(!isset($_SESSION['username'])) {
                             '<td>Email</td>'.
                             '<td>Phone</td>'.
                             '<td>Address</td>'.
+                            '<td>State</td>'.
+                            '<td>Zip</td>'.
                           '</tr>';
                     }
                 ?>
