@@ -19,14 +19,36 @@ if(!isset($_SESSION['username'])) {
     $zip = safeInput($_POST['zip']);
     $admin_id = safeInput($_SESSION['admin_id']);
 
-    $query = "INSERT INTO members(name, email, phone, address, state, zip, admin_id) VALUES('$name', '$email', '$phone', '$address', '$state', $zip, $admin_id)";
-    if(mysqli_query($conn, $query)) {
-      $message_form = "Member added";
+
+    $nameValidation = testName($name);
+    $emailValidation = testEmail($email);
+    $phoneValidation = testPhone($phone);
+    $addressValidation = testAddress($address);
+    $stateValidation = testState($state);
+    $zipValidation = testZip($zip);
+
+    if($nameValidation == false || $emailValidation == false || $phoneValidation == false || $addressValidation == false || $stateValidation == false || $zipValidation == false) {
+      $message_form = "Invalid Inputs";
     } else {
-      echo mysqli_error($conn);
-      $message_form = "Member addition failed!";
+      $query = "INSERT INTO members(name, email, phone, address, state, zip, admin_id) VALUES('$name', '$email', '$phone', '$address', '$state', $zip, $admin_id)";
+      if(mysqli_query($conn, $query)) {
+        $message_form = "Member added";
+        $name = "";
+        $email = "";
+        $phone = "";
+        $address = "";
+        $state = "";
+        $zip = "";
+      } else {
+        echo mysqli_error($conn);
+        $message_form = "Member addition failed!";
+      }
     }
+
+    /*
+
     
+    */
   }
 }
 
@@ -79,21 +101,21 @@ if(!isset($_SESSION['username'])) {
               <p class="text-center text-dark"><?php echo $message_form ?></p>
               <form onsubmit="return checkMemberAddForm();" class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
-                <input type="text" id="name" name="name" class="form-control mt-3 mb-4 form-control-lg" placeholder="Full Name">
+                <input type="text" id="name" name="name" class="form-control mt-3 mb-4 form-control-lg" placeholder="Full Name" value="<?php echo isset($name) ? $name : ""; ?>">
                 
-                <input type="text" id="email" name="email" class="form-control mb-4 form-control-lg" placeholder="Email">
+                <input type="text" id="email" name="email" class="form-control mb-4 form-control-lg" placeholder="Email" value="<?php echo isset($email) ? $email : ""; ?>">
                 
-                <input type="text" id="phone" name="phone" class="form-control mb-4 form-control-lg" placeholder="Phone">
+                <input type="text" id="phone" name="phone" class="form-control mb-4 form-control-lg" placeholder="Phone" value="<?php echo isset($phone) ? $phone : ""; ?>">
                 
-                <input type="text" id="address" name="address" class="form-control mb-4 form-control-lg" placeholder="Address">
+                <input type="text" id="address" name="address" class="form-control mb-4 form-control-lg" placeholder="Address" value="<?php echo isset($address) ? $address : ""; ?>">
 
                 <div class="row">
                     <div class="col-lg-4">
-                      <input type="text" id="state" name="state" class="form-control mb-4 form-control-lg" placeholder="State">
+                      <input type="text" id="state" name="state" class="form-control mb-4 form-control-lg" placeholder="State" value="<?php echo isset($state) ? $state : ""; ?>">
                     </div>
 
                     <div class="col-lg-8">
-                    <input type="text" id="zip" name="zip" class="form-control mb-4 form-control-lg" placeholder="Zip Code">
+                    <input type="text" id="zip" name="zip" class="form-control mb-4 form-control-lg" placeholder="Zip Code" value="<?php echo isset($zip) ? $zip : ""; ?>">
                     </div>
                 </div> 
 
@@ -108,104 +130,105 @@ if(!isset($_SESSION['username'])) {
 </div>
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+
+  function checkMemberAddForm() {
+
+    var invalid = 0;
+
+    var name = document.getElementById('name');
+    var email = document.getElementById('email');
+    var phone = document.getElementById('phone');
+    var state = document.getElementById('state');
+    var zip = document.getElementById('zip');
+    var address = document.getElementById('address');
+
+
+
+    // Testing name
+
+    if (!(name.value.match(/^[A-Za-z\s]+$/)) || name == "") {
+        invalid++;
+        name.classList.add("wrong-input");
+    } else {
+        if (name.classList.contains("wrong-input")) {
+            name.classList.remove("wrong-input");
+        }
+    }
+
+
+    // Testing Email
+
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!(email.value.match(emailPattern)) || email.value == "") {
+        invalid++;
+        email.classList.add("wrong-input");
+    } else {
+        if (email.classList.contains("wrong-input")) {
+            email.classList.remove("wrong-input");
+        }
+    }
+
+
+    // Testing Phone Number
+
+    if (!(phone.value.match(/^\d+$/)) || phone.value == "") {
+        invalid++;
+        phone.classList.add("wrong-input");
+    } else {
+        if (phone.classList.contains("wrong-input")) {
+            phone.classList.remove("wrong-input");
+        }
+    }
+
+
+    // Testing Address
+
+    if (!(address.value.match(/[a-zA-Z0-9]/g)) || address.value == "") {
+        invalid++;
+        address.classList.add("wrong-input");
+    } else {
+        if (address.classList.contains("wrong-input")) {
+            address.classList.remove("wrong-input");
+        }
+    }
+
+
+    // Testing State
+
+    if (!(state.value.match(/[A-Z]/g)) || state.value == "" || state.value.length != 2) {
+        invalid++;
+        state.classList.add("wrong-input");
+    } else {
+        if (state.classList.contains("wrong-input")) {
+            state.classList.remove("wrong-input");
+        }
+    }
+
+
+    // Testing Zip Code
+
+    if (!(zip.value.match(/^\d+$/)) || zip.value == "" || zip.value.length != 5) {
+        invalid++;
+        zip.classList.add("wrong-input");
+    } else {
+        if (zip.classList.contains("wrong-input")) {
+            zip.classList.remove("wrong-input");
+        }
+    }
+
+
+    if (invalid == 0) {
+        return true;
+    } else {
+        return false;
+    }
+    }
     
-    function checkMemberAddForm() {
-
-var invalid = 0;
-
-var name = document.getElementById('name');
-var email = document.getElementById('email');
-var phone = document.getElementById('phone');
-var state = document.getElementById('state');
-var zip = document.getElementById('zip');
-var address = document.getElementById('address');
-
-
-
-// Testing name
-
-if (!(name.value.match(/^[A-Za-z\s]+$/)) || name == "") {
-    invalid++;
-    name.classList.add("wrong-input");
-} else {
-    if (name.classList.contains("wrong-input")) {
-        name.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Email
-
-var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-if (!(email.value.match(emailPattern)) || email.value == "") {
-    invalid++;
-    email.classList.add("wrong-input");
-} else {
-    if (email.classList.contains("wrong-input")) {
-        email.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Phone Number
-
-if (!(phone.value.match(/^\d+$/)) || phone.value == "") {
-    invalid++;
-    phone.classList.add("wrong-input");
-} else {
-    if (phone.classList.contains("wrong-input")) {
-        phone.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Address
-
-if (!(address.value.match(/[a-zA-Z0-9]/g)) || address.value == "") {
-    invalid++;
-    address.classList.add("wrong-input");
-} else {
-    if (address.classList.contains("wrong-input")) {
-        address.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing State
-
-if (!(state.value.match(/[A-Z]/g)) || state.value == "" || state.value.length != 2) {
-    invalid++;
-    state.classList.add("wrong-input");
-} else {
-    if (state.classList.contains("wrong-input")) {
-        state.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Zip Code
-
-if (!(zip.value.match(/^\d+$/)) || zip.value == "" || zip.value.length != 5) {
-    invalid++;
-    zip.classList.add("wrong-input");
-} else {
-    if (zip.classList.contains("wrong-input")) {
-        zip.classList.remove("wrong-input");
-    }
-}
-
-
-if (invalid == 0) {
-    return true;
-} else {
-    return false;
-}
-}
-    
-    </script>
+  </script>
   </body>
 </html>

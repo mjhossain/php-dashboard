@@ -35,17 +35,22 @@ CLIENT SIDE Validation :
 SERVER SIDE Validation : Check length and pattern
 [x] Login
 [x] Registration
-[] Add Member
-[] Edit Member
+[x] Add Member
+[x] Edit Member
 
 
 Changes to be made:
     [x] Change members database columns
     [x] Add JS regex Validation
-    [] Add PHP Validation
+    [x] Add PHP Validation
     [x] Fix Add Member Form
     [x] Fix Edit Member Form
     [] Hashing Passwords
     [x] Add PHP security
     [x] Login Form test
     [x] Registration Form test
+
+
+IMPORTANT
+
+[] Change DB details

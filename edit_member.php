@@ -4,11 +4,7 @@ require('database.php');
 session_start();
 
 $message_form = "";
-$mem_id = "";
-$mem_name = "";
-$mem_email = "";
-$mem_phone = "";
-$mem_address = "";
+
 
 if(!isset($_SESSION['username'])) {
   $_SESSION['message'] = 'Please login to view your dashboard.';
@@ -44,17 +40,30 @@ if(!isset($_SESSION['username'])) {
     $mem_state = safeInput($_POST['state']);
     $mem_zip = safeInput($_POST['zip']);
 
-    
-    $query = "UPDATE members SET id = $mem_id, name = '$mem_name', email = '$mem_email',". 
+    $nameValidation = testName($mem_name);
+    $emailValidation = testEmail($mem_email);
+    $phoneValidation = testPhone($mem_phone);
+    $addressValidation = testAddress($mem_address);
+    $stateValidation = testState($mem_state);
+    $zipValidation = testZip($mem_zip);
+
+    if($nameValidation == false || $emailValidation == false || $phoneValidation == false || $addressValidation == false || $stateValidation == false || $zipValidation == false) {
+      $message_form = "Invalid Inputs";
+    } else {
+      $query = "UPDATE members SET id = $mem_id, name = '$mem_name', email = '$mem_email',". 
              "phone = '$mem_phone', address = '$mem_address', state = '$mem_state', zip = '$mem_zip' WHERE id = $mem_id";
 
-    
-    if(mysqli_query($conn, $query)) {
-      header("Location: members.php");
-    } else {
-      echo mysqli_error($conn);
-      $message_form = "Member update failed!";
+      if(mysqli_query($conn, $query)) {
+        header("Location: members.php");
+      } else {
+        echo mysqli_error($conn);
+        $message_form = "Member update failed!";
+      }
     }
+
+    /*
+    
+    */
     
   } else {
     header("Location: members.php");
@@ -138,99 +147,99 @@ if(!isset($_SESSION['username'])) {
     <script type="text/javascript">
     
     
+    
+    function checkMemberEditForm() {
 
-function checkMemberEditForm() {
+      var invalid = 0;
 
-var invalid = 0;
-
-var name = document.getElementById('name');
-var email = document.getElementById('email');
-var phone = document.getElementById('phone');
-var state = document.getElementById('state');
-var zip = document.getElementById('zip');
-var address = document.getElementById('address');
+      var name = document.getElementById('name');
+      var email = document.getElementById('email');
+      var phone = document.getElementById('phone');
+      var state = document.getElementById('state');
+      var zip = document.getElementById('zip');
+      var address = document.getElementById('address');
 
 
 
-// Testing name
+      // Testing name
 
-if (!(name.value.match(/^[A-Za-z\s]+$/)) || name == "") {
-    invalid++;
-    name.classList.add("wrong-input");
-} else {
-    if (name.classList.contains("wrong-input")) {
-        name.classList.remove("wrong-input");
+      if (!(name.value.match(/^[A-Za-z\s]+$/)) || name == "") {
+          invalid++;
+          name.classList.add("wrong-input");
+      } else {
+          if (name.classList.contains("wrong-input")) {
+              name.classList.remove("wrong-input");
+          }
+      }
+
+
+      // Testing Email
+
+      var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!(email.value.match(emailPattern)) || email.value == "") {
+          invalid++;
+          email.classList.add("wrong-input");
+      } else {
+          if (email.classList.contains("wrong-input")) {
+              email.classList.remove("wrong-input");
+          }
+      }
+
+
+      // Testing Phone Number
+
+      if (!(phone.value.match(/^\d+$/)) || phone.value == "") {
+          invalid++;
+          phone.classList.add("wrong-input");
+      } else {
+          if (phone.classList.contains("wrong-input")) {
+              phone.classList.remove("wrong-input");
+          }
+      }
+
+
+      // Testing Address
+
+      if (!(address.value.match(/[a-zA-Z0-9]/g)) || address.value == "") {
+          invalid++;
+          address.classList.add("wrong-input");
+      } else {
+          if (address.classList.contains("wrong-input")) {
+              address.classList.remove("wrong-input");
+          }
+      }
+
+
+      // Testing State
+
+      if (!(state.value.match(/[A-Z]/g)) || state.value == "" || state.value.length != 2) {
+          invalid++;
+          state.classList.add("wrong-input");
+      } else {
+          if (state.classList.contains("wrong-input")) {
+              state.classList.remove("wrong-input");
+          }
+      }
+
+
+      // Testing Zip Code
+
+      if (!(zip.value.match(/^\d+$/)) || zip.value == "" || zip.value.length != 5) {
+          invalid++;
+          zip.classList.add("wrong-input");
+      } else {
+          if (zip.classList.contains("wrong-input")) {
+              zip.classList.remove("wrong-input");
+          }
+      }
+
+
+      if (invalid == 0) {
+          return true;
+      } else {
+          return false;
+      }
     }
-}
-
-
-// Testing Email
-
-var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-if (!(email.value.match(emailPattern)) || email.value == "") {
-    invalid++;
-    email.classList.add("wrong-input");
-} else {
-    if (email.classList.contains("wrong-input")) {
-        email.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Phone Number
-
-if (!(phone.value.match(/^\d+$/)) || phone.value == "") {
-    invalid++;
-    phone.classList.add("wrong-input");
-} else {
-    if (phone.classList.contains("wrong-input")) {
-        phone.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Address
-
-if (!(address.value.match(/[a-zA-Z0-9]/g)) || address.value == "") {
-    invalid++;
-    address.classList.add("wrong-input");
-} else {
-    if (address.classList.contains("wrong-input")) {
-        address.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing State
-
-if (!(state.value.match(/[A-Z]/g)) || state.value == "" || state.value.length != 2) {
-    invalid++;
-    state.classList.add("wrong-input");
-} else {
-    if (state.classList.contains("wrong-input")) {
-        state.classList.remove("wrong-input");
-    }
-}
-
-
-// Testing Zip Code
-
-if (!(zip.value.match(/^\d+$/)) || zip.value == "" || zip.value.length != 5) {
-    invalid++;
-    zip.classList.add("wrong-input");
-} else {
-    if (zip.classList.contains("wrong-input")) {
-        zip.classList.remove("wrong-input");
-    }
-}
-
-
-if (invalid == 0) {
-    return true;
-} else {
-    return false;
-}
-}
     
     
     </script>
