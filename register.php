@@ -5,6 +5,8 @@ require('database.php');
 
 session_start();
 
+$register_message = "";
+
 if(isset($_SESSION['username'])) {
   header('Location: home.php');
 } else {
@@ -18,14 +20,25 @@ if(isset($_POST['submit'])) {
   $username = safeInput($_POST['username']);
   $password = safeInput($_POST['password']);
 
-  $query = "INSERT INTO admin(name, username, password) VALUES ('".$name."','".$username."','".$password."')";
+  $nameValidation = testName($name);
+  $usernameValidation = testUsername($username);
+  $passwordValidation = testPassword($password);
 
-  if (mysqli_query($conn, $query)) {
-    session_unset();
-    header("Location: index.php");
-    } else {
-        echo "Error: " . $query . "<br>" . mysqli_error($conn);
-    }
+  if($nameValidation == false || $usernameValidation == false || $passwordValidation == false) {
+    $register_message = "Wrong username or password or name, please make sure to enter correct data!";
+  } else {
+    
+    $query = "INSERT INTO admin(name, username, password) VALUES ('".$name."','".$username."','".$password."')";
+
+    if (mysqli_query($conn, $query)) {
+      session_unset();
+      header("Location: index.php");
+      } else {
+          echo "Error: " . $query . "<br>" . mysqli_error($conn);
+      }
+      
+  }
+
   }
 
 ?>
@@ -45,14 +58,14 @@ if(isset($_POST['submit'])) {
       <div class="row align-items-center bodyWrapper">
         <div class="shadow col-md-4 offset-md-2 p-5 registerBox">
           <h3 class="text-center">Join City Flex</h3>
-          
+          <small><?php echo $register_message; ?></small>
           <form onsubmit="return checkForm();" class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="register-form">
-            <input type="text" id="fullname" name="fullname" class="form-control formField mt-5" placeholder="Full name">
+            <input type="text" id="fullname" name="fullname" class="form-control formField mt-5" placeholder="Full name" value="<?php echo isset($name) ? $name : ""; ?>">
             <br>
-            <input type="text" id="username" name="username" class="form-control formField" placeholder="Username">
+            <input type="text" id="username" name="username" class="form-control formField" placeholder="Username" value="<?php echo isset($username) ? $username : ""; ?>">
             <small id="usernameHelper" class="form-text hidden">Your username must be at least 8 characters long and can only contain letters, numbers and underscores.</small>
             <br>
-            <input type="password" id="password" name="password" class="form-control formField" placeholder="Password">
+            <input type="password" id="password" name="password" class="form-control formField" placeholder="Password" value="<?php echo isset($password) ? $password : ""; ?>">
             <small id="pwdHelper" class="form-text hidden">
             Your password must be 8-20 characters long, contain at least 1 upper & lowercase letter, 1 symbol and 1 number.</small>
             <br>
@@ -74,7 +87,8 @@ if(isset($_POST['submit'])) {
 <!-- <script src="test.js"></script> -->
 
 <script type="text/javascript">
-  function checkForm() {
+
+function checkForm() {
 
 var invalid = 0;
 
@@ -151,6 +165,7 @@ if (invalid == 0) {
 }
 
 }
+
 </script>
 
 

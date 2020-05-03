@@ -17,6 +17,7 @@ if(isset($_POST['submit'])){
 
   $username = safeInput($_POST['username']);
   $password = safeInput($_POST['password']);
+
   $query = 'SELECT * FROM admin WHERE username="'.$username.'" AND password="'.$password.'" LIMIT 1';
 
   $result = mysqli_query($conn, $query);

@@ -33,8 +33,8 @@ CLIENT SIDE Validation :
 
 
 SERVER SIDE Validation : Check length and pattern
-[] Login
-[] Registration
+[x] Login
+[x] Registration
 [] Add Member
 [] Edit Member
 
