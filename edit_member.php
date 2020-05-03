@@ -34,6 +34,8 @@ if(!isset($_SESSION['username'])) {
     }
   } elseif(isset($_POST['submit'])) {
 
+    
+    
     $mem_id = safeInput($_POST['member_id']);
     $mem_name = safeInput($_POST['name']);
     $mem_email = safeInput($_POST['email']);
@@ -103,9 +105,9 @@ if(!isset($_SESSION['username'])) {
           </div>
           <div class="row justify-content-center align-items-center">
             <div class="col-lg-4 col-md-8 col-sm-12 add-member-card shadow mt-5 p-4">
-              <h4 class="text-center text-white">Member Add Form</h4>
+              <h4 class="text-center text-white">Member Update Form</h4>
               <p class="text-center text-dark"><?php echo $message_form; ?></p>
-              <form class="" action="edit_member.php" method="post">
+              <form onsubmit="return checkMemberEditForm();" class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
                 <input type="hidden" id="member_id" name="member_id" value="<?php echo $mem_id; ?>">
 
@@ -133,6 +135,104 @@ if(!isset($_SESSION['username'])) {
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script type="text/javascript">
+    
+    
+
+function checkMemberEditForm() {
+
+var invalid = 0;
+
+var name = document.getElementById('name');
+var email = document.getElementById('email');
+var phone = document.getElementById('phone');
+var state = document.getElementById('state');
+var zip = document.getElementById('zip');
+var address = document.getElementById('address');
+
+
+
+// Testing name
+
+if (!(name.value.match(/^[A-Za-z\s]+$/)) || name == "") {
+    invalid++;
+    name.classList.add("wrong-input");
+} else {
+    if (name.classList.contains("wrong-input")) {
+        name.classList.remove("wrong-input");
+    }
+}
+
+
+// Testing Email
+
+var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+if (!(email.value.match(emailPattern)) || email.value == "") {
+    invalid++;
+    email.classList.add("wrong-input");
+} else {
+    if (email.classList.contains("wrong-input")) {
+        email.classList.remove("wrong-input");
+    }
+}
+
+
+// Testing Phone Number
+
+if (!(phone.value.match(/^\d+$/)) || phone.value == "") {
+    invalid++;
+    phone.classList.add("wrong-input");
+} else {
+    if (phone.classList.contains("wrong-input")) {
+        phone.classList.remove("wrong-input");
+    }
+}
+
+
+// Testing Address
+
+if (!(address.value.match(/[a-zA-Z0-9]/g)) || address.value == "") {
+    invalid++;
+    address.classList.add("wrong-input");
+} else {
+    if (address.classList.contains("wrong-input")) {
+        address.classList.remove("wrong-input");
+    }
+}
+
+
+// Testing State
+
+if (!(state.value.match(/[A-Z]/g)) || state.value == "" || state.value.length != 2) {
+    invalid++;
+    state.classList.add("wrong-input");
+} else {
+    if (state.classList.contains("wrong-input")) {
+        state.classList.remove("wrong-input");
+    }
+}
+
+
+// Testing Zip Code
+
+if (!(zip.value.match(/^\d+$/)) || zip.value == "" || zip.value.length != 5) {
+    invalid++;
+    zip.classList.add("wrong-input");
+} else {
+    if (zip.classList.contains("wrong-input")) {
+        zip.classList.remove("wrong-input");
+    }
+}
+
+
+if (invalid == 0) {
+    return true;
+} else {
+    return false;
+}
+}
+    
+    
+    </script>
   </body>
 </html>

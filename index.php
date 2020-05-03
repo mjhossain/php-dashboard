@@ -58,7 +58,7 @@ if(isset($_POST['submit'])){
             <p class="text-center text-danger" id="form-message">
               <?php echo $message; ?>
             </p>
-            <form class="" action="index.php" method="post" id="login_form" onsubmit="return validateLogin()">
+            <form class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="login_form" onsubmit="return validateLogin()">
               <input type="text" id="username" name="username" class="form-control formField mt-5" placeholder="Username">
               <br>
               <input type="password" id="password" name="password" class="form-control formField mb-4" placeholder="Password">
@@ -76,7 +76,55 @@ if(isset($_POST['submit'])){
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="script.js"></script>
+<script type="text/javascript">
+function validateLogin() {
+
+var login_userName = document.getElementById('username');
+var login_password = document.getElementById('password');
+var formMsg = document.getElementById('form-message');
+
+
+if (login_userName.value == '' || login_password.value == '') {
+
+
+
+
+    if (login_userName.value == '' && login_password.value != '') {
+        login_userName.classList.add('wrong-input');
+        if (login_password.classList.contains('wrong-input')) {
+            login_password.classList.remove('wrong-input');
+        }
+    } else if (login_password.value == '' && login_userName.value != '') {
+        login_password.classList.add('wrong-input');
+
+        var regex = /\W/g;
+        if (regex.test(login_userName.value) == true) {
+            login_userName.classList.add('wrong-input');
+        } else if (login_userName.classList.contains('wrong-input')) {
+            login_userName.classList.remove('wrong-input');
+        }
+    } else if (login_userName.value == '' || login_password.value == '') {
+        login_userName.classList.add('wrong-input');
+        login_password.classList.add('wrong-input');
+    }
+
+    return false;
+
+} else {
+
+    var regex = /\W/g;
+    if (regex.test(login_userName.value) == true) {
+        login_userName.classList.add('wrong-input');
+        return false;
+    } else {
+        return true;
+    }
+
+
+}
+}
+
+</script>
 </body>
 </html>
 

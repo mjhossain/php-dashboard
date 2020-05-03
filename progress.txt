@@ -31,8 +31,8 @@ Process
 CLIENT SIDE Validation : Check only if empty
 [x] Login
 [x] Registration
-[] Add Member
-[] Edit Member
+[x] Add Member
+[x] Edit Member
 
 
 SERVER SIDE Validation : Check length and pattern
@@ -44,7 +44,7 @@ SERVER SIDE Validation : Check length and pattern
 
 Changes to be made:
     [x] Change members database columns
-    [] Add JS regex Validation
+    [x] Add JS regex Validation
     [] Add PHP Validation
     [x] Fix Add Member Form
     [x] Fix Edit Member Form

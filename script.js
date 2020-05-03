@@ -54,7 +54,6 @@ function validateLogin() {
 
 
 
-
 function validateRegistration() {
 
     var register_name = document.getElementById('fullname');
@@ -69,64 +68,104 @@ function validateRegistration() {
 
     // check for empty values
 
-    if (fullName == '' || username == '' || password == '' || rePassword == '') {
-        if (fullName == '') {
+
+    if (fullName == '') {
+        register_name.classList.add('wrong-input');
+    } else {
+
+        var regex = /^[a-zA-Z\s]+$/;
+        if (regex.test(fullName) == false) {
             register_name.classList.add('wrong-input');
-        } else {
-
-            var regex = /^[a-zA-Z\s]+$/;
-            if (regex.test(fullName) == false) {
-                register_name.classList.add('wrong-input');
-            } else if (register_name.classList.contains('wrong-input')) {
-                register_name.classList.remove('wrong-input');
-            }
+            return false;
+        } else if (register_name.classList.contains('wrong-input')) {
+            register_name.classList.remove('wrong-input');
         }
+    }
 
-        if (username == '') {
-            register_username.classList.add('wrong-input');
-        } else {
-
-            var regex = /\W/g;
-            if (regex.test(username) == true) {
-                register_username.classList.add('wrong-input');
-            } else if (register_username.classList.contains('wrong-input')) {
-                register_username.classList.remove('wrong-input');
-            }
-        }
-
-        if (password == '') {
-            register_password.classList.add('wrong-input');
-        } else {
-            if (register_password.classList.contains('wrong-input')) {
-                register_password.classList.remove('wrong-input');
-            }
-        }
-
-        if (rePassword == '') {
-            register_re_password.classList.add('wrong-input');
-        } else {
-            if (register_re_password.classList.contains('wrong-input')) {
-                register_re_password.classList.remove('wrong-input');
-            }
-        }
-
+    if (username == '') {
+        register_username.classList.add('wrong-input');
         return false;
     } else {
-        // check if password and re password does not match
-        if (password != rePassword) {
-            alert('Passwords do not match');
-            return false;
-        } else {
 
-            return true;
+        var regex = /\W/g;
+        if (regex.test(username) == true || username.length < 8) {
+            register_username.classList.add('wrong-input');
+            return false;
+        } else if (register_username.classList.contains('wrong-input')) {
+            register_username.classList.remove('wrong-input');
+        }
+    }
+
+    if (password == '') {
+        register_password.classList.add('wrong-input');
+        return false;
+    } else {
+        // Password Check
+
+        var lowerCaseLetters = /[a-z]/g;
+        if (password.match(lowerCaseLetters)) {
+            if (register_password.classList.contains('wrong-input')) {
+                register_password.classList.remove('wrong-input')
+            }
+        } else {
+            letter.classList.add("wrong-input");
+            return false;
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (password.match(upperCaseLetters)) {
+            if (register_password.classList.contains('wrong-input')) {
+                register_password.classList.remove('wrong-input')
+            }
+        } else {
+            letter.classList.add("wrong-input");
+            return false;
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (password.match(numbers)) {
+            if (register_password.classList.contains('wrong-input')) {
+                register_password.classList.remove('wrong-input')
+            }
+        } else {
+            letter.classList.add("wrong-input");
+            return false;
+        }
+
+        // Validate length
+        if (password.length >= 8) {
+            if (register_password.classList.contains('wrong-input')) {
+                register_password.classList.remove('wrong-input')
+            }
+        } else {
+            letter.classList.add("wrong-input");
+            return false;
         }
 
 
     }
 
+    if (rePassword == '') {
+        register_re_password.classList.add('wrong-input');
+        return false;
+    } else {
+        if (register_re_password.classList.contains('wrong-input')) {
+            register_re_password.classList.remove('wrong-input');
+        }
+    }
 
 
 
+    // check if password and re password does not match
+    // if (password != rePassword) {
+    //     alert('Passwords do not match');
+    //     return false;
+    // } else {
+
+    //     return true;
+    // }
 
 
 }
