@@ -23,12 +23,9 @@ Process
 
 [x] FIX EDIT PAGE
 
-[] Validation PHP
-[] Validation JS
-[] MYSQL security
 
 
-CLIENT SIDE Validation : Check only if empty
+CLIENT SIDE Validation :
 [x] Login
 [x] Registration
 [x] Add Member
