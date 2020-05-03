@@ -13,6 +13,7 @@ if(!isset($_SESSION['username'])) {
   $name = $_SESSION['name'];
   $username = $_SESSION['username'];
   $admin_id = $_SESSION['admin_id'];
+                  
 }
 
 ?>
@@ -33,37 +34,63 @@ if(!isset($_SESSION['username'])) {
 
     <div class="container-fluid">
       <div class="row mainWrapper">
-        <div class="col-md-3 menuBar">
+        <!-- <div class="col-md-3 menuBar justify-content-center">
           <br><br>
           <div class="row justify-content-center p-2">
 
             <h3>City Flex</h3>
           </div>
-          <br><br>
-          <div class="col-md-12 menu"></div>
-        </div>
-        <div class="col-md-9 dashboardBody">
+          <br><br><br><br><br><br>
+          <div class="col-md-12 menu justify-content-center">
+            <a href=""><div class="row menuItem mb-3 justify-content-center align-items-center"><h5>Manage Members</h5></div></a>
+            <a href=""><div class="row menuItem mb-3 justify-content-center align-items-center"><h5>Add Member</h5></div></a>
+            <br><br><br><br><br><br><br><br>
+            <a href=""><div class="row menuItem justify-content-center align-items-center"><h5>Logout</h5></div></a>
+          </div>
+        </div> -->
+        <div class="col-md-12 dashboardBody">
           <div class="row mt-2 topBar p-2">
             <div class="col-md-12">
+              <div class="row align-items-center justify-content-center mb-3">
+                <h4 class="">City Flex: Dashboard (<?php echo $name; ?>)</h4>
+                
+              </div>
+              
               <div class="row align-items-center justify-content-center">
-                <h4 class="">Dashboard</h4>
-                <h4 class="offset-7"><?php echo $name; ?></h4>
-                &nbsp;&nbsp;&nbsp;
-                <a href="logout.php" class="align-center text-danger"><i class="fas fa-2x fa-power-off"></i></a>
+                <a href="members.php" class="menuItem text-center">Manage Members</a>
+                <a href="add_member.php" class="menuItem text-center">Add Member</a>
+                <a href="logout.php" class="menuItem text-center">Logout</a>
               </div>
             </div>
           </div>
-          <div class="row p-3">
+          <div class="row p-3 justify-content-center mt-5">
 
               <div class="col-md-3 shadow card1">
-                <div class="col-md-12"></div>
+                <div class="col-md-12 my-auto">
+                  <h2 class="text-center mt-4 text-white">My Members</h2>
+
+                  <?php 
+                  
+                    $query = "SELECT COUNT(*) FROM members WHERE admin_id = $admin_id";
+                    $result = mysqli_query($conn, $query);
+                    $count = mysqli_fetch_assoc($result);
+                    $number = $count['COUNT(*)'];
+                  
+                  ?>
+
+                  <h1 class="text-center text-white memberCount"><?php echo $number; ?></h1>
+                </div>
               </div>
               <div class="col-md-3 shadow card2">
-                <div class="col-md-12"></div>
+              <div class="col-md-12 my-auto">
+                  <h2 class="text-center mt-4 text-white">My Info</h2>
+                  <h5 class="text-center mt-3 text-white">Name: <?php echo $name; ?></h5>
+                  <h5 class="text-center mt-3 text-white">Username: <?php echo $username; ?></h5>
+                </div>
               </div>
-              <div class="col-md-4 shadow card3">
+              <!-- <div class="col-md-4 shadow card3">
                 <div class="col-md-12"></div>
-              </div>
+              </div> -->
 
           </div>
           <div class="row justify-content-center mt-5">
@@ -87,7 +114,7 @@ if(!isset($_SESSION['username'])) {
                 <?php
                 
 
-                    $memberBtnText = "Manage All Members";
+                    $memberBtnText = "View Details of All Members";
                     $memBtnLink = "members.php";
 
                     $query = "SELECT * FROM members WHERE admin_id = ".$admin_id." LIMIT 4";

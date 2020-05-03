@@ -109,8 +109,8 @@
 }
 
 .menu {
-    height: 70vh;
-    background-color: var(--indigo);
+    height: 100vh;
+    /* background-color: var(--black); */
 }
 
 a:hover {
@@ -123,6 +123,14 @@ a:hover {
 
 .delBtn:hover {
     color: #ff5252;
+}
+
+.editBtn {
+    color: #007bff;
+}
+
+.editBtn:hover {
+    color: #007bff;
 }
 
 .mainWrapper {
@@ -151,4 +159,30 @@ a:hover {
 
 .hidden {
     display: none;
+}
+
+.menuItem {
+    height: 40px;
+    width: 250px;
+    background-color: #ff5252;
+    /* text-align: center; */
+    /* vertical-align: middle; */
+    margin-right: 1em;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    font-weight: bold;
+}
+
+.memberCount {
+    font-size: 5em;
 }

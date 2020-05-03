@@ -38,29 +38,20 @@ if(!isset($_SESSION['username'])) {
       <div class="row  mainWrapper">
         
         <div class="col-md-12 dashboardBody">
-        <div class="row mt-2 topBar p-2 justify-content-center">
-            <div class="col-lg-12 col-md-12 align-items-center">
-            <div class="row align-items-center justify-content-center">
-                <a href="home.php" class="btn btn-primary text-center dashboard-btn">Dashboard</a>
-                <!-- <h4 class="">Add Member</h4> -->
-                <h4 class="offset-lg-7 offset-md-5"><?php echo $_SESSION['name']; ?></h4>
-                &nbsp;&nbsp;&nbsp;
-                <a href="logout.php" class="align-center text-danger"><i class="fas fa-2x fa-power-off"></i></a>
+        <div class="row mt-2 topBar p-2">
+            <div class="col-md-12">
+              <div class="row align-items-center justify-content-center mb-3">
+                <h4 class="">City Flex: Manage Members</h4>
+                
               </div>
-              <div class="row">
-                <p>
-                  <?php 
-
-                    if (isset($message)) {
-                      echo $message;
-                    } else {
-                      echo "";
-                    }
-
-                    ?>
-                </p>
+              
+              <div class="row align-items-center justify-content-center">
+                <a href="home.php" class="menuItem text-center">Dashboard</a>
+                <a href="add_member.php" class="menuItem text-center">Add New Member</a>
+                <a href="logout.php" class="menuItem text-center">Logout</a>
               </div>
             </div>
+          </div>
       <div class="row mt-5 tableBox align-items-center">
         <div class="col-md-12 justify-content-center">
         <a href="add_member.php" class="btn-warning btn-lg btn-block mb-5 text-center">Add New Member</a>  
@@ -92,7 +83,7 @@ if(!isset($_SESSION['username'])) {
                             '<td>'.$row['address'].'</td>'.
                             '<td>'.$row['state'].'</td>'.
                             '<td>'.$row['zip'].'</td>'.
-                            '<td><a href="edit_member.php?id='.$row['id'].'"><i class="fas fa-1x fa-edit"></i></a> <a href="delete.php?id='.$row['id'].'" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
+                            '<td><a href="edit_member.php?id='.$row['id'].'" class="editBtn"><i class="fas fa-1x fa-edit"></i></a> <a href="delete.php?id='.$row['id'].'" class="delBtn"><i class="fas fa-1x fa-trash-alt"></i></a></td>'.
                           '</tr>';
                       }
                     } else {

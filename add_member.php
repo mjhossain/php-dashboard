@@ -71,27 +71,17 @@ if(!isset($_SESSION['username'])) {
   <div class="container-fluid">
       <div class="row  mainWrapper">
         <div class="col-lg-12 col-md-12 dashboardBody">
-          <div class="row mt-2 topBar p-2 justify-content-center">
-            <div class="col-lg-12 col-md-12 align-items-center">
-            <div class="row align-items-center justify-content-center">
-                <a href="members.php" class="btn btn-primary text-center dashboard-btn">Manage Members</a>
-                <!-- <h4 class="">Add Member</h4> -->
-                <h4 class="offset-lg-7 offset-md-5"><?php echo $_SESSION['name']; ?></h4>
-                &nbsp;&nbsp;&nbsp;
-                <a href="logout.php" class="align-center text-danger"><i class="fas fa-2x fa-power-off"></i></a>
+        <div class="row mt-2 topBar p-2">
+            <div class="col-md-12">
+              <div class="row align-items-center justify-content-center mb-3">
+                <h4 class="">City Flex: Add Member</h4>
+                
               </div>
-              <div class="row">
-                <p>
-                  <?php 
-
-                    if (isset($message)) {
-                      echo $message;
-                    } else {
-                      echo "";
-                    }
-
-                    ?>
-                </p>
+              
+              <div class="row align-items-center justify-content-center">
+                <a href="home.php" class="menuItem text-center">Dashboard</a>
+                <a href="members.php" class="menuItem text-center">Manage Members</a>
+                <a href="logout.php" class="menuItem text-center">Logout</a>
               </div>
             </div>
           </div>
