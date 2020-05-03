@@ -16,22 +16,24 @@ if(isset($_POST['submit'])){
   
 
   $username = safeInput($_POST['username']);
-  $password = safeInput($_POST['password']);
+  $password = mysqli_real_escape_string($_POST['password']);
+  
 
-  $query = 'SELECT * FROM admin WHERE username="'.$username.'" AND password="'.$password.'" LIMIT 1';
+  $query = "SELECT * FROM admin WHERE username='$username'";
 
   $result = mysqli_query($conn, $query);
 
-  if(mysqli_num_rows($result) == 1) {
+  if(mysqli_num_rows($result) > 1) {
     while($row = mysqli_fetch_assoc($result)) {
 
-      // echo $row['name'];
+      if(password_verify($password, $row['password'])) {
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['admin_id'] = $row['id'];
 
-      $_SESSION['username'] = $row['username'];
-      $_SESSION['name'] = $row['name'];
-      $_SESSION['admin_id'] = $row['id'];
-    }
-    header('Location: home.php');
+        header('Location: home.php');
+      } 
+    } 
   } else {
     $message = "Wrong username or password!";
   }

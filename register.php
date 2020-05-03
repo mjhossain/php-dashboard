@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) {
   
   $name = safeInput($_POST['fullname']);
   $username = safeInput($_POST['username']);
-  $password = safeInput($_POST['password']);
+  $password = $_POST['password'];
 
   $nameValidation = testName($name);
   $usernameValidation = testUsername($username);
@@ -27,8 +27,8 @@ if(isset($_POST['submit'])) {
   if($nameValidation == false || $usernameValidation == false || $passwordValidation == false) {
     $register_message = "Wrong username or password or name, please make sure to enter correct data!";
   } else {
-    
-    $query = "INSERT INTO admin(name, username, password) VALUES ('".$name."','".$username."','".$password."')";
+    $hashedPassword = hashPassword($password);
+    $query = "INSERT INTO admin(name, username, password) VALUES ('".$name."','".$username."','".$hashedPassword."')";
 
     if (mysqli_query($conn, $query)) {
       session_unset();

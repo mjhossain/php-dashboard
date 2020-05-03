@@ -21,10 +21,6 @@ Process
 [x] Logout
 
 
-[x] FIX EDIT PAGE
-
-
-
 CLIENT SIDE Validation :
 [x] Login
 [x] Registration
@@ -39,18 +35,11 @@ SERVER SIDE Validation : Check length and pattern
 [x] Edit Member
 
 
-Changes to be made:
-    [x] Change members database columns
-    [x] Add JS regex Validation
-    [x] Add PHP Validation
-    [x] Fix Add Member Form
-    [x] Fix Edit Member Form
-    [] Hashing Passwords
-    [x] Add PHP security
-    [x] Login Form test
-    [x] Registration Form test
+SECURITY
+    [x] Hashing Password
+    [x] Verifying Password
 
 
 IMPORTANT
-
 [] Change DB details
+[] Export DB
