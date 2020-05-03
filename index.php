@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
 
   $result = mysqli_query($conn, $query);
 
-  if(mysqli_num_rows($result) > 1) {
+  if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
 
       if(password_verify($password, $row['password'])) {
